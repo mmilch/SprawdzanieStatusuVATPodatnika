@@ -1,3 +1,28 @@
+/**
+ * Redistribution and use in source and binary forms, with or without
+ * modification, are permitted provided that the following conditions are met:
+ * 
+ *   * Redistributions of source code must retain the above copyright
+ *     notice, this list of conditions and the following disclaimer.
+ *   * Redistributions in binary form must reproduce the above copyright
+ *     notice, this list of conditions and the following disclaimer in the
+ *     documentation and/or other materials provided with the distribution.
+ *   * Neither the name of the <organization> nor the
+ *     names of its contributors may be used to endorse or promote products
+ *     derived from this software without specific prior written permission.
+ * 
+ * THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS "AS IS"
+ * AND ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT LIMITED TO, THE
+ * IMPLIED WARRANTIES OF MERCHANTABILITY AND FITNESS FOR A PARTICULAR PURPOSE
+ * ARE DISCLAIMED. IN NO EVENT SHALL <COPYRIGHT HOLDER> BE LIABLE FOR ANY
+ * DIRECT, INDIRECT, INCIDENTAL, SPECIAL, EXEMPLARY, OR CONSEQUENTIAL DAMAGES
+ * (INCLUDING, BUT NOT LIMITED TO, PROCUREMENT OF SUBSTITUTE GOODS OR SERVICES;
+ * LOSS OF USE, DATA, OR PROFITS; OR BUSINESS INTERRUPTION) HOWEVER CAUSED AND
+ * ON ANY THEORY OF LIABILITY, WHETHER IN CONTRACT, STRICT LIABILITY, OR TORT
+ * (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF
+ * THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
+ */
+
 function checkVatStatus(input_str, response_tag_no, html_elem_id) {
 
     function printResult(result, html_elem_id) {
@@ -10,7 +35,7 @@ function checkVatStatus(input_str, response_tag_no, html_elem_id) {
         if (input_str.charCodeAt(i) >= 48 && input_str.charCodeAt(i) <= 57) nip += input_str.charAt(i);
     }
 
-    if (nip.length != 10) return printResult('Nieprawid³owa d³ugoœæ NIP', html_elem_id);
+    if (nip.length != 10) return printResult('NieprawidÂ³owa dÂ³ugoÅ“Ã¦ NIP', html_elem_id);
 
     var weight = [6, 5, 7, 2, 3, 4, 5, 6, 7];
     var sum = 0;
@@ -19,7 +44,7 @@ function checkVatStatus(input_str, response_tag_no, html_elem_id) {
         sum += nip[i] * weight[i];
     }
 
-    if (sum % 11 != nip[9]) return printResult('Nieprawid³owy numer NIP', html_elem_id)
+    if (sum % 11 != nip[9]) return printResult('NieprawidÂ³owy numer NIP', html_elem_id)
 
     var req = new XMLHttpRequest();
     var proxy = 'https://cors-anywhere.herokuapp.com/';
@@ -28,7 +53,7 @@ function checkVatStatus(input_str, response_tag_no, html_elem_id) {
 
     sr = sr.replace(/%NIP%/g, nip);
 
-    printResult('£¹czenie z serwerem MF', html_elem_id);
+    printResult('Â£Â¹czenie z serwerem MF', html_elem_id);
     req.open('POST', proxy + url, true);
 
     req.onreadystatechange = function() {
@@ -39,7 +64,7 @@ function checkVatStatus(input_str, response_tag_no, html_elem_id) {
                     (req.responseXML.getElementsByTagName('Komunikat')[0].childNodes[0].nodeValue)
                 ];
                 return printResult(arr[parseInt(response_tag_no)], html_elem_id);
-            } else return printResult('B³¹d po³¹czenia: ' + req.status, html_elem_id);
+            } else return printResult('BÂ³Â¹d poÂ³Â¹czenia: ' + req.status, html_elem_id);
         }
     }
 
