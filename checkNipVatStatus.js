@@ -23,7 +23,7 @@
  * THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
  */
 
-function checkVatStatus(input_str, response_tag_no, html_elem_id) {
+function checkNipVatStatus(input_str, response_tag_no, html_elem_id) {
 
     function printResult(result, html_elem_id) {
         document.getElementById(html_elem_id).innerHTML = result;
@@ -71,4 +71,4 @@ function checkVatStatus(input_str, response_tag_no, html_elem_id) {
 
 }
 
-//EXAMPLE: checkVatStatus('6920000013', 0, 'div_id') || checkVatStatus('6920000013', 1, 'div_id');
+//EXAMPLE: checkNipVatStatus('6920000013', 0, 'div_id') || checkNipVatStatus('6920000013', 1, 'div_id');
