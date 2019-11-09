@@ -59,11 +59,7 @@ function checkVatStatus(input_str, response_tag_no, html_elem_id) {
     req.onreadystatechange = function() {
         if (req.readyState == 4) {
             if (req.status == 200) {
-                const arr = [
-                    (req.responseXML.getElementsByTagName('Kod')[0].childNodes[0].nodeValue),
-                    (req.responseXML.getElementsByTagName('Komunikat')[0].childNodes[0].nodeValue)
-                ];
-                return printResult(arr[parseInt(response_tag_no)], html_elem_id);
+                return printResult(req.responseXML.getElementsByTagName(response_tag_no ? 'Kod':'Komunikat')[0].childNodes[0].nodeValue, html_elem_id);
             } else return printResult('Błąd połączenia: ' + req.status, html_elem_id);
         }
     }
@@ -74,3 +70,5 @@ function checkVatStatus(input_str, response_tag_no, html_elem_id) {
     req.send(sr);
 
 }
+
+//EXAMPLE: checkVatStatus('6920000013', 0, 'div_id') || checkVatStatus('6920000013', 1, 'div_id');
