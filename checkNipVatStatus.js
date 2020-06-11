@@ -31,27 +31,27 @@ function checkNipVatStatus(input_str, response_tag_no, html_elem_id) {
         document.getElementById(html_elem_id).innerHTML = result;
     }
 
-    let nip = '';
+    var nip = '';
 
-    for (let i = 0; i < input_str.length; ++i) {
+    for (var i = 0; i < input_str.length; ++i) {
         if (input_str.charCodeAt(i) >= 48 && input_str.charCodeAt(i) <= 57) nip += input_str.charAt(i);
     }
 
     if (nip.length != 10) return printResult('Nieprawidłowa długość NIP', html_elem_id);
 
-    const weight = [6, 5, 7, 2, 3, 4, 5, 6, 7];
-    let sum = 0;
+    var weight = [6, 5, 7, 2, 3, 4, 5, 6, 7];
+    var sum = 0;
 
-    for (let i = 0; i < weight.length; ++i) {
+    for (var i = 0; i < weight.length; ++i) {
         sum += nip[i] * weight[i];
     }
 
     if (sum % 11 != nip[9]) return printResult('Nieprawidłowy numer NIP', html_elem_id)
 
-    let req = new XMLHttpRequest();
-    const proxy = 'https://cors-anywhere.herokuapp.com/';
-    const url = 'https://sprawdz-status-vat.mf.gov.pl';
-    let sr = '<?xml version="1.0" encoding="UTF-8"?><SOAP-ENV:Envelope xmlns:SOAP-ENV="http://schemas.xmlsoap.org/soap/envelope/" xmlns:ns1="http://www.mf.gov.pl/uslugiBiznesowe/uslugiDomenowe/AP/WeryfikacjaVAT/2018/03/01"><SOAP-ENV:Body><ns1:NIP>%NIP%</ns1:NIP></SOAP-ENV:Body></SOAP-ENV:Envelope>';
+    var req = new XMLHttpRequest();
+    var proxy = 'https://cors-anywhere.herokuapp.com/';
+    var url = 'https://sprawdz-status-vat.mf.gov.pl';
+    var sr = '<?xml version="1.0" encoding="UTF-8"?><SOAP-ENV:Envelope xmlns:SOAP-ENV="http://schemas.xmlsoap.org/soap/envelope/" xmlns:ns1="http://www.mf.gov.pl/uslugiBiznesowe/uslugiDomenowe/AP/WeryfikacjaVAT/2018/03/01"><SOAP-ENV:Body><ns1:NIP>%NIP%</ns1:NIP></SOAP-ENV:Body></SOAP-ENV:Envelope>';
 
     sr = sr.replace(/%NIP%/g, nip);
 
